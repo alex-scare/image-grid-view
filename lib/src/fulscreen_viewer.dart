@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:styled_widget/styled_widget.dart';
 
 /// A widget that displays a full-screen image gallery with pagination and an app bar.
 class FullScreenViewer extends StatefulWidget {
@@ -53,16 +52,21 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
     var textColor = Theme.of(context).colorScheme.onBackground;
 
     return Scaffold(
-      bottomSheet: Styled.text(
-        '$currentPageIndex/${widget.images.length}',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: textColor.withOpacity(0.7),
-          fontSize: 16,
+      bottomSheet: Container(
+        width: double.infinity,
+        child: Text(
+          '$currentPageIndex/${widget.images.length}',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: textColor.withOpacity(0.7),
+            fontSize: 16,
+          ),
         ),
-      ).width(double.infinity),
+      ),
       appBar: AppBar(title: Text(widget.title, textAlign: TextAlign.center)),
       body: PhotoViewGallery.builder(
+          backgroundDecoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.background),
           builder: (_, index) {
             return PhotoViewGalleryPageOptions(
               imageProvider: NetworkImage(widget.images[index]),

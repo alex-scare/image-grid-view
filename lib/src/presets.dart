@@ -1,3 +1,16 @@
+/// Names for matching the grid positions.
+const gridPositionName = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+];
+
 /// A `Map` that defines grid layouts for various image counts.
 const presets = {
   1: '''

@@ -20,9 +20,8 @@ class GridImageItem extends StatelessWidget {
       fit: BoxFit.cover,
       loadingBuilder: (_, child, loadingProgress) {
         if (loadingProgress == null) return child;
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

@@ -15,10 +15,10 @@ include: package:lints/recommended.yaml
 
 # Uncomment the following section to specify additional rules.
 
-# linter:
-#   rules:
-#     - camel_case_types
-
+rules:
+  avoid_print: true # Uncomment to disable the `avoid_print` rule
+  prefer_single_quotes: true # Uncomment to enable the `prefer_single_quotes` rule
+  require_trailing_commas: true
 # analyzer:
 #   exclude:
 #     - path/to/excluded/files/**

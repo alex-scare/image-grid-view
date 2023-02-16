@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:image_grid_view/src/grid_image_item.dart';
-import 'package:styled_widget/styled_widget.dart';
 
 /// A widget that displays the last item in a grid of images, along with a count of any additional images.
 class LastItem extends StatelessWidget {
@@ -24,16 +23,25 @@ class LastItem extends StatelessWidget {
 
     return Stack(children: [
       Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: GridImageItem(url: url)),
-      Text(
-        '+$count',
-        style: TextStyle(
-            color: textColor.withOpacity(0.7),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-      ).center().backgroundColor(backgroundColor.withOpacity(0.5)),
+        child: GridImageItem(url: url),
+        height: double.infinity,
+        width: double.infinity,
+      ),
+      Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(color: backgroundColor.withOpacity(0.5)),
+        child: Center(
+          child: Text(
+            '+$count',
+            style: TextStyle(
+              color: textColor.withOpacity(0.7),
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+        ),
+      ),
     ]);
   }
 }
