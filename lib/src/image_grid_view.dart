@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:image_grid_view/src/fulscreen_viewer.dart';
 import 'package:image_grid_view/src/grid_image_item.dart';
@@ -8,7 +7,7 @@ import 'package:image_grid_view/src/presets.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 /// A widget that displays a grid of images with an option to view the images full screen.
-class ImageGridView extends HookWidget {
+class ImageGridView extends StatefulWidget {
   /// Creates a grid of images with an option to view the images full screen.
   ///
   /// The `images` parameter is a list of URLs for the images to display. The `fullScreenTitle` parameter
@@ -29,40 +28,46 @@ class ImageGridView extends HookWidget {
   final String fullScreenTitle;
 
   @override
+  State<ImageGridView> createState() => _ImageGridViewState();
+}
+
+class _ImageGridViewState extends State<ImageGridView> {
+  List<String> mainImages = [];
+  List<String> otherImages = [];
+
+  @override
+  void initState() {
+    var delimiterIndex = widget.images.length > 9 ? 9 : widget.images.length;
+    mainImages = widget.images.sublist(0, delimiterIndex);
+
+    if (widget.images.length > delimiterIndex) {
+      otherImages = widget.images.sublist(delimiterIndex);
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (images.isEmpty) {
+    if (widget.images.isEmpty) {
       return Container();
     }
 
-    var mainImages = useState<List<String>>([]);
-    var otherImages = useState<List<String>>([]);
-
-    // Separates the list of images into two lists: `mainImages` and `otherImages`.
-    useEffect(() {
-      var delimiterIndex = images.length > 9 ? 9 : images.length;
-      mainImages.value = images.sublist(0, delimiterIndex);
-
-      if (images.length > delimiterIndex) {
-        otherImages.value = images.sublist(delimiterIndex);
-      }
-      return null;
-    }, [images]);
-
     return LayoutGrid(
-      areas: presets[mainImages.value.length] ?? presets[1]!,
+      areas: presets[mainImages.length] ?? presets[1]!,
       columnSizes: [1.fr, 1.fr, 1.fr, 1.fr, 1.fr, 1.fr],
       rowSizes: [1.fr, 1.fr, 1.fr, 1.fr, 1.fr, 1.fr],
       rowGap: 2.0,
       columnGap: 2.0,
       gridFit: GridFit.loose,
-      children: mainImages.value.map((e) {
-        var index = mainImages.value.indexOf(e);
-        var url = mainImages.value[index];
-        var isShowMore = index + 1 == mainImages.value.length &&
-            otherImages.value.isNotEmpty;
+      children: mainImages.map((e) {
+        var index = mainImages.indexOf(e);
+        var url = mainImages[index];
+        var isShowMore =
+            index + 1 == mainImages.length && otherImages.isNotEmpty;
 
         var element = isShowMore
-            ? LastItem(count: otherImages.value.length, url: url)
+            ? LastItem(count: otherImages.length, url: url)
             : GridImageItem(url: url);
 
         return element
@@ -72,9 +77,9 @@ class ImageGridView extends HookWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => FullScreenViewer(
-                    images: images,
+                    images: widget.images,
                     initialPage: index,
-                    title: fullScreenTitle,
+                    title: widget.fullScreenTitle,
                   ),
                 ),
               ),

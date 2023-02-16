@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 /// A widget that displays a single image within a grid.
-class GridImageItem extends HookWidget {
+class GridImageItem extends StatelessWidget {
   /// Creates a widget to display a single image in a grid.
   ///
   /// The `url` parameter is the URL of the image to display.
