@@ -5,17 +5,25 @@ import 'package:image_grid_view/src/grid_image_item.dart';
 import 'package:image_grid_view/src/last_item.dart';
 import 'package:image_grid_view/src/presets.dart';
 
+/// Defines the gestures that can be performed on the images in the grid.
 class ImageGridGestures {
   ImageGridGestures({this.onTap, this.onLongPress, this.onDoubleTap});
 
+  /// Callback function that is called when an image is tapped.
   final Function(String image)? onTap;
+
+  /// Callback function that is called when an image is long pressed.
   final Function(String image)? onLongPress;
+
+  /// Callback function that is called when an image is double tapped.
   final Function(String image)? onDoubleTap;
 }
 
+/// Defines the style of the grid of images.
 class ImageGridStyle {
   ImageGridStyle({this.gap = 2.0});
 
+  /// The gap between the images in the grid.
   final double gap;
 }
 
@@ -24,7 +32,9 @@ class ImageGridView extends StatefulWidget {
   /// Creates a grid of images with an option to view the images full screen.
   ///
   /// The `images` parameter is a list of URLs for the images to display. The `fullScreenTitle` parameter
-  /// specifies the title to display in the app bar when an image is viewed full screen.
+  /// specifies the title to display in the app bar when an image is viewed full screen. The `enableFullScreen` parameter
+  /// determines whether full screen view is enabled or not. The `imageGestures` parameter defines the gestures that can be
+  /// performed on the images in the grid, and the `imageStyle` parameter defines the style of the grid of images.
   ImageGridView({
     Key? key,
     required this.images,
@@ -36,18 +46,20 @@ class ImageGridView extends StatefulWidget {
 
   /// The URLs of the images to display in the grid.
   ///
-  /// The maximum length of visible `images` in grid is 9.
-  /// Other images will be displayed in the last item as counter.
+  /// The maximum number of visible `images` in the grid is 9.
+  /// Any additional images will be displayed in the last item as a counter.
   final List<String> images;
 
   /// The title to display in the app bar when an image is viewed full screen.
   final String fullScreenTitle;
 
-  /// Open images in fullscreen gallery via tap or not
+  /// Determines whether full screen view is enabled or not.
   final bool enableFullScreen;
 
+  /// Defines the gestures that can be performed on the images in the grid.
   final ImageGridGestures? imageGestures;
 
+  /// Defines the style of the grid of images.
   final ImageGridStyle? imageStyle;
 
   @override
