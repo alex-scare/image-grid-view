@@ -40,8 +40,7 @@ contribute to the package, how to file issues, what response they can expect
 from the package authors, and more.
 
 ## Roadmap
-- Make fullscreen view optionable
-- Add several style customization parameters
-- Add several logic parameters (onImageTap etc.)
 - Try to remove dependencies
 - Add feature to use asset images 
+- Add more image position presets
+- Add recognizing image orientation
